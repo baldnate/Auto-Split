@@ -310,7 +310,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def checkLiveImage(self):
         if self.liveimageCheckBox.isChecked():
-            self.timerLiveImage.start(1000 / 60)
+            self.timerLiveImage.start(int(1000 / 60))
         else:
             self.timerLiveImage.stop()
             self.liveImageFunction()
