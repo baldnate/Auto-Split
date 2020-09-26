@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtCore, QtTest
+from PyQt5 import QtGui, QtCore, QtTest, QtWidgets
 import sys
 import os
 import win32gui
@@ -18,7 +18,7 @@ import capture_windows
 import split_parser
 
 
-class AutoSplit(QtGui.QMainWindow, design.Ui_MainWindow):
+class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
     myappid = u'mycompany.myproduct.subproduct.version'
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
@@ -849,7 +849,7 @@ class AutoSplit(QtGui.QMainWindow, design.Ui_MainWindow):
             if self.waiting_for_split_delay == True:
                 time_millis = int(round(time.time() * 1000))
                 if time_millis < self.split_time:
-                    QtGui.QApplication.processEvents()
+                    QtWidgets.QApplication.processEvents()
                     continue
 
             self.updateSplitImage()
@@ -894,7 +894,7 @@ class AutoSplit(QtGui.QMainWindow, design.Ui_MainWindow):
                     self.custompausetimesCheckBox.setEnabled(True)
                     self.customthresholdsCheckBox.setEnabled(True)
                     self.groupDummySplitsCheckBox.setEnabled(True)
-                    QtGui.QApplication.processEvents()
+                    QtWidgets.QApplication.processEvents()
                     return
 
                 # get capture again if needed
@@ -950,7 +950,7 @@ class AutoSplit(QtGui.QMainWindow, design.Ui_MainWindow):
                 # limit the number of time the comparison runs to reduce cpu usage
                 fps_limit = self.fpslimitSpinBox.value()
                 time.sleep((1 / fps_limit) - (time.time() - start) % (1 / fps_limit))
-                QtGui.QApplication.processEvents()
+                QtWidgets.QApplication.processEvents()
 
 
             # comes here when threshold gets met
@@ -1055,7 +1055,7 @@ class AutoSplit(QtGui.QMainWindow, design.Ui_MainWindow):
                 else:
                     self.undosplitButton.setEnabled(True)
 
-                QtGui.QApplication.processEvents()
+                QtWidgets.QApplication.processEvents()
 
                 # I have a pause loop here so that it can check if the user presses skip split, undo split, or reset here.
                 # This should probably eventually be a signal... but it works
@@ -1120,7 +1120,7 @@ class AutoSplit(QtGui.QMainWindow, design.Ui_MainWindow):
         self.custompausetimesCheckBox.setEnabled(True)
         self.customthresholdsCheckBox.setEnabled(True)
         self.groupDummySplitsCheckBox.setEnabled(True)
-        QtGui.QApplication.processEvents()
+        QtWidgets.QApplication.processEvents()
 
     def compareImage(self, image, mask, capture):
         if mask is None:
@@ -1275,98 +1275,98 @@ class AutoSplit(QtGui.QMainWindow, design.Ui_MainWindow):
     # Error messages
 
     def splitImageDirectoryError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("No split image folder is selected.")
         msgBox.exec_()
 
     def imageTypeError(self, image):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText(
             '"' + image + '" is not a valid image file or the full image file path contains a special character.')
         msgBox.exec_()
 
     def regionError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("No region is selected. Select a region or reload settings while region window is open")
         msgBox.exec_()
 
     def regionSizeError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("Width and height cannot be 0. Please select a larger region.")
         msgBox.exec_()
 
     def splitHotkeyError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("No split hotkey has been set.")
         msgBox.exec_()
 
     def customThresholdError(self, image):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("\"" + image + "\" doesn't have a valid custom threshold.")
         msgBox.exec_()
 
     def customPauseError(self, image):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("\"" + image + "\" doesn't have a valid custom pause time.")
         msgBox.exec_()
 
     def alphaChannelError(self, image):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("\"" + image + "\" is marked with mask flag but it doesn't have transparency.")
         msgBox.exec_()
 
     def alignRegionImageTypeError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("File not a valid image file")
         msgBox.exec_()
 
     def alignmentNotMatchedError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("No area in capture region matched reference image. Alignment failed.")
         msgBox.exec_()
 
     def multipleResetImagesError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("Only one image with the keyword \"reset\" is allowed.")
         msgBox.exec_()
 
     def noResetImageThresholdError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("Reset Image must have a custom threshold. Please set one and check that it is valid")
         msgBox.exec_()
 
     def resetHotkeyError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("Your split image folder contains a reset image, but no reset hotkey is set.")
         msgBox.exec_()
 
     def dummySplitsError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("Group dummy splits when undoing/skipping cannot be checked if any split image has a loop parameter greater than 1")
         msgBox.exec_()
 
     def settingsNotFoundError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("No settings file found. The settings file is saved when the program is closed.")
         msgBox.exec_()
 
     def invalidSettingsError(self):
-        msgBox = QtGui.QMessageBox()
+        msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowTitle('Error')
         msgBox.setText("The settings file is invalid")
         msgBox.exec_()
@@ -1523,7 +1523,7 @@ class AutoSplit(QtGui.QMainWindow, design.Ui_MainWindow):
 
 # Widget for dragging screen region
 # https://github.com/harupy/snipping-tool
-class SelectRegionWidget(QtGui.QWidget):
+class SelectRegionWidget(QtWidgets.QWidget):
     def __init__(self):
         super(SelectRegionWidget, self).__init__()
         user32 = ctypes.windll.user32
@@ -1546,7 +1546,7 @@ class SelectRegionWidget(QtGui.QWidget):
         self.begin = QtCore.QPoint()
         self.end = QtCore.QPoint()
         self.setWindowOpacity(0.5)
-        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+        QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.show()
 
@@ -1566,7 +1566,7 @@ class SelectRegionWidget(QtGui.QWidget):
         self.update()
 
     def mouseReleaseEvent(self, event):
-        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.close()
 
         # The coordinates are pulled relative to the top left of the set geometry,
@@ -1582,7 +1582,7 @@ class SelectRegionWidget(QtGui.QWidget):
 
 
 # widget to select a window and obtain its bounds
-class SelectWindowWidget(QtGui.QWidget):
+class SelectWindowWidget(QtWidgets.QWidget):
     def __init__(self):
         super(SelectWindowWidget, self).__init__()
         user32 = ctypes.windll.user32
@@ -1613,7 +1613,7 @@ class SelectWindowWidget(QtGui.QWidget):
 
 
 # About Window
-class AboutWidget(QtGui.QWidget, about.Ui_aboutAutoSplitWidget):
+class AboutWidget(QtWidgets.QWidget, about.Ui_aboutAutoSplitWidget):
     def __init__(self):
         super(AboutWidget, self).__init__()
         self.setupUi(self)
@@ -1623,7 +1623,7 @@ class AboutWidget(QtGui.QWidget, about.Ui_aboutAutoSplitWidget):
 
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('icon.ico'))
     w = AutoSplit()
     w.setWindowIcon(QtGui.QIcon('icon.ico'))

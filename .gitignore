@@ -1,0 +1,7 @@
+/.venv
+/.vscode
+*.lock
+__pycache__/
+settings.pkl
+
+
