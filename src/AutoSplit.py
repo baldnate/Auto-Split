@@ -424,20 +424,6 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
                 self.afterSettingHotkeySignal.emit()
                 return
 
-            # keyboard module allows you to hit multiple keys for a hotkey. they are joined
-            # together by +. If user hits two keys at the same time, make no changes to the
-            # hotkey. A try and except is needed if a hotkey hasn't been set yet. I'm not
-            # allowing for these multiple-key hotkeys because it can cause crashes, and
-            # not many people are going to really use or need this.
-            try:
-                if '+' in self.split_key:
-                    self.split_hotkey = keyboard.add_hotkey(self.old_split_key, self.startAutoSplitter)
-                    self.afterSettingHotkeySignal.emit()
-                    return
-            except AttributeError:
-                self.afterSettingHotkeySignal.emit()
-                return
-
             # add the key as the hotkey, set the text into the LineEdit, set it as old_xxx_key,
             # then emite a signal to re-enable some buttons and change some text in GUI.
             self.split_hotkey = keyboard.add_hotkey(self.split_key, self.startAutoSplitter)
@@ -468,15 +454,8 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
             except AttributeError:
                 self.afterSettingHotkeySignal.emit()
                 return
-            try:
-                if '+' in self.reset_key:
-                    self.reset_hotkey = keyboard.add_hotkey(self.old_reset_key, self.startReset)
-                    self.afterSettingHotkeySignal.emit()
-                    return
-            except AttributeError:
-                self.afterSettingHotkeySignal.emit()
-                return
-            self.reset_hotkey = keyboard.add_hotkey(self.reset_key, self.startReset)
+
+            # self.reset_hotkey = keyboard.add_hotkey(self.reset_key, self.startReset)
             self.resetLineEdit.setText(self.reset_key)
             self.old_reset_key = self.reset_key
             self.afterSettingHotkeySignal.emit()
@@ -507,16 +486,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
                 self.afterSettingHotkeySignal.emit()
                 return
 
-            try:
-                if '+' in self.skip_split_key:
-                    self.skip_split_hotkey = keyboard.add_hotkey(self.old_skip_split_key, self.startSkipSplit)
-                    self.afterSettingHotkeySignal.emit()
-                    return
-            except AttributeError:
-                self.afterSettingHotkeySignal.emit()
-                return
-
-            self.skip_split_hotkey = keyboard.add_hotkey(self.skip_split_key, self.startSkipSplit)
+            # self.skip_split_hotkey = keyboard.add_hotkey(self.skip_split_key, self.startSkipSplit)
             self.skipsplitLineEdit.setText(self.skip_split_key)
             self.old_skip_split_key = self.skip_split_key
             self.afterSettingHotkeySignal.emit()
@@ -547,16 +517,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
                 self.afterSettingHotkeySignal.emit()
                 return
 
-            try:
-                if '+' in self.undo_split_key:
-                    self.undo_split_hotkey = keyboard.add_hotkey(self.old_undo_split_key, self.startUndoSplit)
-                    self.afterSettingHotkeySignal.emit()
-                    return
-            except AttributeError:
-                self.afterSettingHotkeySignal.emit()
-                return
-
-            self.undo_split_hotkey = keyboard.add_hotkey(self.undo_split_key, self.startUndoSplit)
+            # self.undo_split_hotkey = keyboard.add_hotkey(self.undo_split_key, self.startUndoSplit)
             self.undosplitLineEdit.setText(self.undo_split_key)
             self.old_undo_split_key = self.undo_split_key
             self.afterSettingHotkeySignal.emit()
