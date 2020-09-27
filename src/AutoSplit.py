@@ -106,7 +106,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def browse(self):
         # User selects the file with the split images in it.
         self.split_image_directory = str(
-            QtGui.QFileDialog.getExistingDirectory(self, "Select Split Image Directory")) + '\\'
+            QtWidgets.QFileDialog.getExistingDirectory(self, "Select Split Image Directory")) + '\\'
 
         # If the user doesn't select a folder, it defaults to \. Set it back to whats in the LineEdit, and return
         if self.split_image_directory == '\\':
