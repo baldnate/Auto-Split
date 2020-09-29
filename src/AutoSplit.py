@@ -838,7 +838,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
                     reset_similarity = self.compareImage(self.reset_image, self.reset_mask, capture)
                     if reset_similarity >= self.reset_image_threshold:
                         keyboard.send(str(self.resetLineEdit.text()))
-                        self.reset()
+                        # self.reset()
 
                 # loop goes into here if start auto splitter text is "Start Auto Splitter"
                 if self.startautosplitterButton.text() == 'Start Auto Splitter':
@@ -971,7 +971,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
                             reset_similarity = self.compareImage(self.reset_image, self.reset_mask, capture)
                             if reset_similarity >= self.reset_image_threshold:
                                 keyboard.send(str(self.resetLineEdit.text()))
-                                self.reset()
+                                # self.reset()
                                 continue
 
                         QtTest.QTest.qWait(1)
@@ -1061,7 +1061,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
                         reset_similarity = self.compareImage(self.reset_image, self.reset_mask, capture)
                         if reset_similarity >= self.reset_image_threshold:
                             keyboard.send(str(self.resetLineEdit.text()))
-                            self.reset()
+                            # self.reset()
                             continue
 
                     QtTest.QTest.qWait(1)
