@@ -406,18 +406,19 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
         def callback():
             # try to remove the previously set hotkey if there is one.
             try:
-                keyboard.remove_hotkey(self.split_hotkey)
+                # keyboard.remove_hotkey(self.split_hotkey)
+                pass
             except AttributeError:
                 pass
 
             # wait until user presses the hotkey, then keyboard module reads the input
-            self.split_key = keyboard.read_hotkey(False)
+            self.split_key = keyboard.read_hotkey(False).lower()
 
             # If the key the user presses is equal to itself or another hotkey already set,
             # this causes issues. so here, it catches that, and will make no changes to the hotkey.
             try:
                 if self.split_key == self.splitLineEdit.text() or self.split_key == self.resetLineEdit.text() or self.split_key == self.skipsplitLineEdit.text() or self.split_key == self.undosplitLineEdit.text():
-                    self.split_hotkey = keyboard.add_hotkey(self.old_split_key, self.startAutoSplitter)
+                    # self.split_hotkey = keyboard.add_hotkey(self.old_split_key, self.startAutoSplitter)
                     self.afterSettingHotkeySignal.emit()
                     return
             except AttributeError:
@@ -426,7 +427,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
             # add the key as the hotkey, set the text into the LineEdit, set it as old_xxx_key,
             # then emite a signal to re-enable some buttons and change some text in GUI.
-            self.split_hotkey = keyboard.add_hotkey(self.split_key, self.startAutoSplitter)
+            # self.split_hotkey = keyboard.add_hotkey(self.split_key, self.startAutoSplitter)
             self.splitLineEdit.setText(self.split_key)
             self.old_split_key = self.split_key
             self.afterSettingHotkeySignal.emit()
@@ -442,13 +443,14 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
         def callback():
             try:
-                keyboard.remove_hotkey(self.reset_hotkey)
+                # keyboard.remove_hotkey(self.reset_hotkey)
+                pass
             except AttributeError:
                 pass
-            self.reset_key = keyboard.read_hotkey(False)
+            self.reset_key = keyboard.read_hotkey(False).lower()
             try:
                 if self.reset_key == self.splitLineEdit.text() or self.reset_key == self.resetLineEdit.text() or self.reset_key == self.skipsplitLineEdit.text() or self.reset_key == self.undosplitLineEdit.text():
-                    self.reset_hotkey = keyboard.add_hotkey(self.old_reset_key, self.startReset)
+                    # self.reset_hotkey = keyboard.add_hotkey(self.old_reset_key, self.startReset)
                     self.afterSettingHotkeySignal.emit()
                     return
             except AttributeError:
@@ -471,15 +473,16 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
         def callback():
             try:
-                keyboard.remove_hotkey(self.skip_split_hotkey)
+                # keyboard.remove_hotkey(self.skip_split_hotkey)
+                pass
             except AttributeError:
                 pass
 
-            self.skip_split_key = keyboard.read_hotkey(False)
+            self.skip_split_key = keyboard.read_hotkey(False).lower()
 
             try:
                 if self.skip_split_key == self.splitLineEdit.text() or self.skip_split_key == self.resetLineEdit.text() or self.skip_split_key == self.skipsplitLineEdit.text() or self.skip_split_key == self.undosplitLineEdit.text():
-                    self.skip_split_hotkey = keyboard.add_hotkey(self.old_skip_split_key, self.startSkipSplit)
+                    # self.skip_split_hotkey = keyboard.add_hotkey(self.old_skip_split_key, self.startSkipSplit)
                     self.afterSettingHotkeySignal.emit()
                     return
             except AttributeError:
@@ -502,15 +505,16 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
         def callback():
             try:
-                keyboard.remove_hotkey(self.undo_split_hotkey)
+                # keyboard.remove_hotkey(self.undo_split_hotkey)
+                pass
             except AttributeError:
                 pass
 
-            self.undo_split_key = keyboard.read_hotkey(False)
+            self.undo_split_key = keyboard.read_hotkey(False).lower()
 
             try:
                 if self.undo_split_key == self.splitLineEdit.text() or self.undo_split_key == self.resetLineEdit.text() or self.undo_split_key == self.skipsplitLineEdit.text() or self.undo_split_key == self.undosplitLineEdit.text():
-                    self.undo_split_hotkey = keyboard.add_hotkey(self.old_undo_split_key, self.startUndoSplit)
+                    # self.undo_split_hotkey = keyboard.add_hotkey(self.old_undo_split_key, self.startUndoSplit)
                     self.afterSettingHotkeySignal.emit()
                     return
             except AttributeError:
@@ -973,7 +977,7 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
                         QtTest.QTest.qWait(1)
 
                 # Split key press
-                self.waiting_for_split_delay = False
+                self.waiting_for_split_delay = False      
                 keyboard.send(str(self.splitLineEdit.text()))
 
             #increase loop number if needed, set to 1 if it was the last loop.
@@ -1424,11 +1428,12 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
             # try to set hotkeys from when user last closed the window
             try:
                 try:
-                    keyboard.remove_hotkey(self.split_hotkey)
+                    # keyboard.remove_hotkey(self.split_hotkey)
+                    pass
                 except AttributeError:
                     pass
                 self.splitLineEdit.setText(str(self.split_key))
-                self.split_hotkey = keyboard.add_hotkey(str(self.split_key), self.startAutoSplitter)
+                # self.split_hotkey = keyboard.add_hotkey(str(self.split_key), self.startAutoSplitter)
                 self.old_split_key = self.split_key
             # pass if the key is an empty string (hotkey was never set)
             except ValueError:
@@ -1436,33 +1441,36 @@ class AutoSplit(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
             try:
                 try:
-                    keyboard.remove_hotkey(self.reset_hotkey)
+                    # keyboard.remove_hotkey(self.reset_hotkey)
+                    pass
                 except AttributeError:
                     pass
                 self.resetLineEdit.setText(str(self.reset_key))
-                self.reset_hotkey = keyboard.add_hotkey(str(self.reset_key), self.startReset)
+                # self.reset_hotkey = keyboard.add_hotkey(str(self.reset_key), self.startReset)
                 self.old_reset_key = self.reset_key
             except ValueError:
                 pass
 
             try:
                 try:
-                    keyboard.remove_hotkey(self.skip_split_hotkey)
+                    # keyboard.remove_hotkey(self.skip_split_hotkey)
+                    pass
                 except AttributeError:
                     pass
                 self.skipsplitLineEdit.setText(str(self.skip_split_key))
-                self.skip_split_hotkey = keyboard.add_hotkey(str(self.skip_split_key), self.startSkipSplit)
+                # self.skip_split_hotkey = keyboard.add_hotkey(str(self.skip_split_key), self.startSkipSplit)
                 self.old_skip_split_key = self.skip_split_key
             except ValueError:
                 pass
 
             try:
                 try:
-                    keyboard.remove_hotkey(self.undo_split_hotkey)
+                    # keyboard.remove_hotkey(self.undo_split_hotkey)
+                    pass
                 except AttributeError:
                     pass
                 self.undosplitLineEdit.setText(str(self.undo_split_key))
-                self.undo_split_hotkey = keyboard.add_hotkey(str(self.undo_split_key), self.startUndoSplit)
+                # self.undo_split_hotkey = keyboard.add_hotkey(str(self.undo_split_key), self.startUndoSplit)
                 self.old_undo_split_key = self.undo_split_key
             except ValueError:
                 pass
